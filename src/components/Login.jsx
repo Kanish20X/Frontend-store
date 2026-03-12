@@ -1,26 +1,21 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../App";
 import axios from "axios";
-function Register() {
-    const [user, setUser] = useState({});
+import { useNavigate } from "react-router-dom";
+function Login() {
+    const { user, setUser } = useContext(AppContext);
     const API_URL = import.meta.env.VITE_API_URL;
-    const Navigate = useNavigate();
-    const handleSubmit = async () => {
-        const url = API_URL + "/auth/signup";
+    const Navigate = useNavigate()
+    const handleLogin = async () => {
+        const url = API_URL + "/auth/signin";
         const response = await axios.post(url, user);
-        Navigate("/login");
+        setUser(response)
+        Navigate("/")
     };
     return (
         <div>
-            <h2>Registration Page</h2>
-            <p>
-                <input
-                    type="text"
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
-                    placeholder="Name"
-                />
-            </p>
+            <h2>Login Page</h2>
             <p>
                 <input
                     type="text"
@@ -36,12 +31,12 @@ function Register() {
                 />
             </p>
             <p>
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleLogin}>Login</button>
             </p>
             <p>
-                <Link to="/login">Already a member? Login here</Link>
+                <Link to="/register">New user register here</Link>
             </p>
         </div>
     );
 }
-export default Register;
+export default Login;
