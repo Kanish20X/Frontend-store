@@ -7,6 +7,13 @@ function Header() {
   return (
     <div className="App-Header">
       <h1>My Store</h1>
+      <header>
+        <h2>My Store</h2>
+
+        {user?.name && (
+          <p>Welcome, {user?.name}</p>
+        )}
+      </header>
       <ul>
         <li>
           <Link to="/">Home</Link>
